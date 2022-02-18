@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+//앱실행
 void main() => runApp(const MyApp());
 
+//상태 변화가 없는 위젯, 한번 UI가 그려지면 그대로 있다.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  //UI를 만드는 부분
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Retrieve Text Input',
+      //화면에 보여지는 내용
       home: CalculatorForm(title:"계산"),
     );
   }
 }
 
-// Define a custom Form widget.
+//상태 변화가 가능한 위젯
 class CalculatorForm extends StatefulWidget {
   const CalculatorForm({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -25,12 +29,10 @@ class CalculatorForm extends StatefulWidget {
 }
 
 
-// Define a corresponding State class.
-// This class holds data related to the Form.
+//실질적으로 widget 을 구현하는 곳
 class _CalculatorFormState extends State<CalculatorForm> {
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
 
+  //text 입력값을 들고오기
   final myFirstText = TextEditingController();
   final mySecondText = TextEditingController();
 
@@ -77,11 +79,13 @@ class _CalculatorFormState extends State<CalculatorForm> {
         title: const Text('계산기'),
       ),
       body: Padding(
+        //사이즈
         padding: const EdgeInsets.all(40.0),
         child: Column(
           children: [
             TextField(
               keyboardType: TextInputType.number,
+              //숫자만 입력가능하게 만들기
               inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),],
               decoration: const InputDecoration(
                 hintText: "값을 입력해주세요"
@@ -100,6 +104,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
             ),
             Container(
               child: Row(
+                //가로 정렬, 세로로 정렬할려면 crossAxisAlignment
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(onPressed: _zero,
